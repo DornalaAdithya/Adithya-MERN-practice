@@ -2,8 +2,8 @@
 //import express module
 import exp from "express";
 //import api's
-import {userApp} from './api/user-api.js';
-import {productApp} from './api/product-api.js';
+import { userApp } from "./APIs/UserApi.js";
+import { productApp } from "./APIs/ProductApi.js";
 //create server
 const app = exp();
 
@@ -27,13 +27,8 @@ USER API:
 app.use(exp.json());
 
 //forward request to userApp when path starts with '/user-api'
-app.use("/user-api",userApp); 
-app.use("/product-api",productApp);
-
-
-
-
-
+app.use("/user-api", userApp);
+app.use("/product-api", productApp);
 
 /*
 //Create a Custom MiddleWare
