@@ -1,0 +1,29 @@
+GET http://127.0.0.1:3000/user-api/users
+
+###
+POST http://127.0.0.1:3000/user-api/users
+Content-Type: application/json
+
+{
+    "id":100,
+    "name":"ravi",
+    "age":19
+}
+
+###
+PUT http://127.0.0.1:3000/user-api/users
+Content-Type: application/json
+
+{
+    "id":100,
+    "name":"ravi kumar",
+    "age":21
+}
+
+
+### Read a User by id
+GET http://127.0.0.1:3000/user-api/users/100
+
+
+###
+DELETE http://127.0.0.1:3000/user-api/users-id/100
