@@ -1,0 +1,47 @@
+### read users
+GET http://localhost:4000/user-api/users
+
+### create user
+POST http://localhost:4000/user-api/users
+Content-Type: application/json
+
+{
+    "username":"hero",
+    "password":"hello",
+    "age":20
+}
+
+### get user by id
+GET http://localhost:4000/user-api/users/697dc170018c82741296a7b9
+
+### update user
+PUT http://localhost:4000/user-api/users/697dc2f3018c82741296a7be
+Content-Type: application/json
+
+{
+    "username":"hero",
+    "password":"hello",
+    "age":17
+}
+
+
+### delete user by ObjectId
+DELETE http://localhost:4000/user-api/users/697dc170018c82741296a7b9
+
+
+
+
+
+
+### user authentication req (login req)
+POST http://localhost:4000/user-api/auth
+Content-Type: application/json
+
+{
+    "username" : "hero",
+    "password" : "hello"
+}
+
+
+### req for protected route
+GET http://localhost:4000/user-api/test
