@@ -1,0 +1,34 @@
+### create product
+POST http://localhost:5000/product-api/products
+Content-Type: application/json
+
+{
+    "productName" : "washing machine",
+    "price" : 50000,
+    "brand" : "LG"
+}
+
+
+### get all products
+GET http://localhost:5000/product-api/products
+
+
+
+### create user
+POST http://localhost:5000/user-api/users
+Content-Type: application/json
+
+{
+    "name" : "goutam",
+    "email" : "goutam@gmail.com",
+    "password" : "goutam1234#",
+    "cart" : []
+}
+
+
+### req to add product to cart 
+PUT http://localhost:5000/user-api/user-cart/user-id/69807304209c71c4e50ad1d3/product-id/69806793812c852e809fc618
+
+
+### get user by id
+GET http://localhost:5000/user-api/users/69807304209c71c4e50ad1d3
