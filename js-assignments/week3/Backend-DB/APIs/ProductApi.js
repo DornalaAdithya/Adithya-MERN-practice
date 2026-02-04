@@ -45,3 +45,12 @@ productApp.put("/products/:id", async (req, res) => {
   );
   res.status(200).json({ message: "product updated", payload: latestProduct });
 });
+
+//delete product route
+productApp.delete("/products/:id", async (req, res) => {
+  //get objId from url params
+  let objId = req.params.id;
+  //delete product by id
+  let deletedProduct = await ProductModel.findByIdAndDelete(objId);
+  res.status(404).json({ message: "product removed", payload: deletedProduct });
+});
