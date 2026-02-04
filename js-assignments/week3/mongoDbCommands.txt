@@ -1,0 +1,490 @@
+# checking databases
+show databases
+admin       40.00 KiB
+config      72.00 KiB
+local       76.00 KiB
+projectdb   64.00 KiB
+sampledb    32.00 KiB
+
+# create or switch database
+use projectdb
+switched to db projectdb
+
+# create and check collections
+db.createCollection("students")
+{ ok: 1 }
+show collections
+>students
+
+# insert one and many documents
+db.students.insertOne({name:"rohan",age:22,address:{city:"hyd",pincode:500055},skills:["javascript","node","css"]})
+{
+  acknowledged: true,
+  insertedId: ObjectId('701a111aaef1b25794e54001')
+}
+
+db.students.insertMany([
+  {name:"karthik",age:20,address:{city:"sec",pincode:500003},skills:["java","spring"]},
+  {name:"anita",age:24,address:{city:"hyd",pincode:500081},skills:["python","mongodb"]}
+])
+{
+  acknowledged: true,
+  insertedIds: {
+    '0': ObjectId('701a112aaef1b25794e54002'),
+    '1': ObjectId('701a113aaef1b25794e54003')
+  }
+}
+
+# read one and many documents
+db.students.findOne()
+{
+  _id: ObjectId('701a111aaef1b25794e54001'),
+  name: 'rohan',
+  age: 22,
+  address: {
+    city: 'hyd',
+    pincode: 500055
+  },
+  skills: [
+    'javascript',
+    'node',
+    'css'
+  ]
+}
+
+db.students.find()
+{
+  _id: ObjectId('701a111aaef1b25794e54001'),
+  name: 'rohan',
+  age: 22,
+  address: {
+    city: 'hyd',
+    pincode: 500055
+  },
+  skills: [
+    'javascript',
+    'node',
+    'css'
+  ]
+}
+{
+  _id: ObjectId('701a112aaef1b25794e54002'),
+  name: 'karthik',
+  age: 20,
+  address: {
+    city: 'sec',
+    pincode: 500003
+  },
+  skills: [
+    'java',
+    'spring'
+  ]
+}
+{
+  _id: ObjectId('701a113aaef1b25794e54003'),
+  name: 'anita',
+  age: 24,
+  address: {
+    city: 'hyd',
+    pincode: 500081
+  },
+  skills: [
+    'python',
+    'mongodb'
+  ]
+}
+
+# query operators
+
+# $eq-equals
+db.students.find({age:{$eq:22}})
+{
+  _id: ObjectId('701a111aaef1b25794e54001'),
+  name: 'rohan',
+  age: 22,
+  address: {
+    city: 'hyd',
+    pincode: 500055
+  },
+  skills: [
+    'javascript',
+    'node',
+    'css'
+  ]
+}
+
+# $gt-greaterthan
+db.students.find({age:{$gt:22}})
+{
+  _id: ObjectId('701a113aaef1b25794e54003'),
+  name: 'anita',
+  age: 24,
+  address: {
+    city: 'hyd',
+    pincode: 500081
+  },
+  skills: [
+    'python',
+    'mongodb'
+  ]
+}
+
+# $gte-greaterthan equals
+db.students.find({age:{$gte:22}})
+{
+  _id: ObjectId('701a111aaef1b25794e54001'),
+  name: 'rohan',
+  age: 22,
+  address: {
+    city: 'hyd',
+    pincode: 500055
+  },
+  skills: [
+    'javascript',
+    'node',
+    'css'
+  ]
+}
+{
+  _id: ObjectId('701a113aaef1b25794e54003'),
+  name: 'anita',
+  age: 24,
+  address: {
+    city: 'hyd',
+    pincode: 500081
+  },
+  skills: [
+    'python',
+    'mongodb'
+  ]
+}
+
+# $lt-lessthan
+db.students.find({age:{$lt:22}})
+{
+  _id: ObjectId('701a112aaef1b25794e54002'),
+  name: 'karthik',
+  age: 20,
+  address: {
+    city: 'sec',
+    pincode: 500003
+  },
+  skills: [
+    'java',
+    'spring'
+  ]
+}
+
+# $ne-not equals
+db.students.find({age:{$ne:22}})
+{
+  _id: ObjectId('701a112aaef1b25794e54002'),
+  name: 'karthik',
+  age: 20,
+  address: {
+    city: 'sec',
+    pincode: 500003
+  },
+  skills: [
+    'java',
+    'spring'
+  ]
+}
+{
+  _id: ObjectId('701a113aaef1b25794e54003'),
+  name: 'anita',
+  age: 24,
+  address: {
+    city: 'hyd',
+    pincode: 500081
+  },
+  skills: [
+    'python',
+    'mongodb'
+  ]
+}
+
+# $in
+db.students.find({"address.city":{$in:["hyd"]}})
+{
+  _id: ObjectId('701a111aaef1b25794e54001'),
+  name: 'rohan',
+  age: 22,
+  address: {
+    city: 'hyd',
+    pincode: 500055
+  },
+  skills: [
+    'javascript',
+    'node',
+    'css'
+  ]
+}
+{
+  _id: ObjectId('701a113aaef1b25794e54003'),
+  name: 'anita',
+  age: 24,
+  address: {
+    city: 'hyd',
+    pincode: 500081
+  },
+  skills: [
+    'python',
+    'mongodb'
+  ]
+}
+
+# logical operators
+
+#$and  (&&)
+db.students.find({$and:[{"address.city":"hyd"},{age:22}]})
+{
+  _id: ObjectId('701a111aaef1b25794e54001'),
+  name: 'rohan',
+  age: 22,
+  address: {
+    city: 'hyd',
+    pincode: 500055
+  },
+  skills: [
+    'javascript',
+    'node',
+    'css'
+  ]
+}
+
+#$or   (||)
+db.students.find({$or:[{age:20},{"address.city":"hyd"}]})
+{
+  _id: ObjectId('701a111aaef1b25794e54001'),
+  name: 'rohan',
+  age: 22,
+  address: {
+    city: 'hyd',
+    pincode: 500055
+  },
+  skills: [
+    'javascript',
+    'node',
+    'css'
+  ]
+}
+{
+  _id: ObjectId('701a112aaef1b25794e54002'),
+  name: 'karthik',
+  age: 20,
+  address: {
+    city: 'sec',
+    pincode: 500003
+  },
+  skills: [
+    'java',
+    'spring'
+  ]
+}
+{
+  _id: ObjectId('701a113aaef1b25794e54003'),
+  name: 'anita',
+  age: 24,
+  address: {
+    city: 'hyd',
+    pincode: 500081
+  },
+  skills: [
+    'python',
+    'mongodb'
+  ]
+}
+
+#$not  (!)
+db.students.find({age:{$not:{$lt:22}}})
+{
+  _id: ObjectId('701a113aaef1b25794e54003'),
+  name: 'anita',
+  age: 24,
+  address: {
+    city: 'hyd',
+    pincode: 500081
+  },
+  skills: [
+    'python',
+    'mongodb'
+  ]
+}
+
+# update one and many documents
+db.students.updateOne(
+  { name: "anita" },
+  { $set: { age: 23 } }
+)
+{
+  acknowledged: true,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0
+}
+
+db.students.updateMany(
+  { "address.city": "hyd" },
+  { $set: { "address.city": "HYD" } }
+)
+{
+  acknowledged: true,
+  matchedCount: 2,
+  modifiedCount: 2,
+  upsertedCount: 0
+}
+
+# delete one document
+db.students.deleteOne({ name: "anita" })
+{
+  acknowledged: true,
+  deletedCount: 1
+}
+
+# insert document with nested object
+db.students.insertOne({
+  name: "suresh",
+  address: {
+    city: "bangalore",
+    pincode: 560001
+  }
+})
+{
+  acknowledged: true,
+  insertedId: ObjectId('701a114aaef1b25794e54004')
+}
+
+db.students.find({ "address.city": "bangalore" })
+{
+  _id: ObjectId('701a114aaef1b25794e54004'),
+  name: 'suresh',
+  address: {
+    city: 'bangalore',
+    pincode: 560001
+  }
+}
+
+# insert array field
+db.students.insertOne({
+  name: "neha",
+  skills: ["java", "mongodb", "python"]
+})
+{
+  acknowledged: true,
+  insertedId: ObjectId('701a115aaef1b25794e54005')
+}
+
+db.students.find({ skills: "mongodb" })
+{
+  _id: ObjectId('701a115aaef1b25794e54005'),
+  name: 'neha',
+  skills: [
+    'java',
+    'mongodb',
+    'python'
+  ]
+}
+
+db.students.find({ skills: { $all: ["java", "python"] } })
+{
+  _id: ObjectId('701a115aaef1b25794e54005'),
+  name: 'neha',
+  skills: [
+    'java',
+    'mongodb',
+    'python'
+  ]
+}
+
+# update embedded document
+db.students.updateOne(
+  { name: "suresh" },
+  { $set: { "address.city": "mysore" } }
+)
+{
+  acknowledged: true,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0
+}
+
+db.students.updateOne(
+  { name: "suresh" },
+  { $unset: { "address.pincode": "" } }
+)
+{
+  acknowledged: true,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0
+}
+
+# update array
+db.students.updateOne(
+  { name: "neha" },
+  { $push: { skills: "nodejs" } }
+)
+{
+  acknowledged: true,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0
+}
+
+db.students.updateOne(
+  { name: "neha" },
+  { $push: { skills: { $each: ["docker", "aws"] } } }
+)
+{
+  acknowledged: true,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0
+}
+
+db.students.updateOne(
+  { name: "neha" },
+  { $pop: { skills: -1 } }
+)
+{
+  acknowledged: true,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0
+}
+
+db.students.updateOne(
+  { name: "neha" },
+  { $pull: { skills: "java" } }
+)
+{
+  acknowledged: true,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0
+}
+
+# updating array of documents
+db.students.insertOne({
+  name: "manoj",
+  marks: [
+    { subject: "maths", score: 80 },
+    { subject: "science", score: 75 }
+  ]
+})
+{
+  acknowledged: true,
+  insertedId: ObjectId('701a116aaef1b25794e54006')
+}
+
+db.students.updateOne(
+  { name: "manoj" },
+  { $set: { "marks.0.score": 90 } }
+)
+{
+  acknowledged: true,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0
+}
