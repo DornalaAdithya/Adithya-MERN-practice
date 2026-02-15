@@ -3,14 +3,31 @@ POST http://localhost:5000/product-api/products
 Content-Type: application/json
 
 {
-    "productName" : "washing machine",
-    "price" : 50000,
-    "brand" : "LG"
+    "productName" : "DEMO PRODUCT",
+    "price" : 12345,
+    "brand" : "EXAMPLE"
 }
 
 
 ### get all products
 GET http://localhost:5000/product-api/products
+
+### get product by ID
+GET http://localhost:5000/product-api/products/id/69806793812c852e809fc618
+
+### get product by brand
+GET http://localhost:5000/product-api/products/brand/apple
+
+### update product
+PUT http://localhost:5000/product-api/products/id/69806793812c852e809fc618
+Content-Type: application/json
+
+{
+    "price":36500
+}
+
+### delete product by id
+DELETE http://localhost:5000/product-api/products/id/6991d43fa67d6f41bc93fc22
 
 
 
@@ -19,9 +36,9 @@ POST http://localhost:5000/user-api/users
 Content-Type: application/json
 
 {
-    "name" : "goutam",
-    "email" : "goutam@gmail.com",
-    "password" : "goutam1234#",
+    "name" : "DEMO USER",
+    "email" : "demo@gmail.com",
+    "password" : "demouser123",
     "cart" : []
 }
 
@@ -32,3 +49,15 @@ PUT http://localhost:5000/user-api/user-cart/user-id/69807304209c71c4e50ad1d3/pr
 
 ### get user by id
 GET http://localhost:5000/user-api/users/69807304209c71c4e50ad1d3
+
+### update user (only name,email)
+PUT http://localhost:5000/user-api/users/6991d9439a96f1d7d71588b9
+Content-Type: application/json
+
+{
+    "name":"USER DEMO",
+    "password":"1234"
+}
+
+### delete the user
+DELETE http://localhost:5000/user-api/users/6991d9439a96f1d7d71588b9

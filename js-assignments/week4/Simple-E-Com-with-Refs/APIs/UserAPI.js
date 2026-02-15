@@ -118,3 +118,30 @@ userRoute.get("/users/:id", async (req, res) => {
   }
   res.status(200).json({ message: "user found", payload: user });
 });
+
+//update the user(name,email) - only name , email will be updated.
+userRoute.put("/users/:id", async (req, res) => {
+  let uid = req.params.id;
+  let user = await UserModel.findById(uid);
+  if (!user) {
+    return res.status(404).json({ message: "no user found" });
+  }
+  let reqBody = req.body;
+  delete reqBody.password;
+  let latestUser = await UserModel.findByIdAndUpdate(
+    uid,
+    { $set: { ...reqBody } },
+    { new: true, runValidators: true },
+  );
+  res.status(200).json({ message: "user updated", payload: latestUser });
+});
+
+//delete the user
+userRoute.delete("/users/:id", async (req, res) => {
+  let uid = req.params.id;
+  let deletedUser = await UserModel.findByIdAndDelete(uid);
+  if (!deletedUser) {
+    return res.status(404).json({ message: "no user found" });
+  }
+  res.status(200).json({ message: "user deleted", payload: deletedUser });
+});
