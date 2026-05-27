@@ -15,6 +15,13 @@ This section explores how to handle complex relationships between different enti
 *   **Mongoose References (`ref`)**: A way to link documents from one collection to documents in another collection. For example, an `Order` document can store the `ObjectId` of the `User` who placed it, creating a reference.
 *   **`populate()`**: A Mongoose method used to automatically replace the specified paths (the references) in the document with the actual document(s) from other collection(s). Instead of just seeing an ID for the User in the Order, `populate` fetches the full User document and attaches it to the query result. This is analogous to a SQL `JOIN`.
 
+### 3. Core Architecture Concepts
+These are fundamental structural concepts used in modern Node.js backend development.
+*   **Middlewares**: Functions that have access to the request object (`req`), the response object (`res`), and the next middleware function in the application's request-response cycle. They can execute any code, make changes to the request and the response objects, end the request-response cycle, or call the next middleware (via `next()`). Examples include auth checks, logging, and error handling.
+*   **Models**: In an MVC (Model-View-Controller) architecture, the Model represents the data structure and business logic. In Mongoose, a Model is a wrapper for the Schema that provides an interface to the database for creating, querying, updating, deleting records, etc.
+*   **Controllers**: Functions that contain the core logic for handling specific route requests. They take the incoming request, interact with the Models to retrieve or modify data, and send back the appropriate response to the client.
+*   **Routes**: Definitions that map HTTP requests (like GET, POST) for specific URLs to the appropriate Controller functions.
+
 ## Prerequisites
 
 To run these projects, you must have:
