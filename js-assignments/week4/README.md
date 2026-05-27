@@ -1,11 +1,19 @@
 # Week 4: Advanced Backend Concepts
 
-This folder contains assignments for the fourth week of training, delving into more complex backend architectures, security, and advanced data modeling.
+This folder contains assignments for the fourth week of training, delving into more complex backend architectures, securing applications, and advanced data modeling techniques.
 
-## Topics Covered
+## Detailed Topics Covered
 
-*   **Backend-auth-hashing-JWT**: Implementation of robust user authentication. This includes securely hashing user passwords before storing them in the database and utilizing JSON Web Tokens (JWT) for managing user sessions and securing API endpoints.
-*   **Simple-E-Com-with-Refs**: Building a more advanced E-commerce backend using Mongoose references (`ref`) and the `populate` method. This demonstrates how to model relationships between different data entities (e.g., Users, Products, and Orders) within a NoSQL database.
+### 1. Authentication and Security (`Backend-auth-hashing-JWT`)
+This section focuses on securing the API and managing user identities.
+*   **Authentication vs Authorization**: Authentication is verifying *who* a user is (e.g., login). Authorization is verifying *what* they have access to do.
+*   **Password Hashing**: The process of taking a plain-text password and passing it through a hashing algorithm (like bcrypt) to generate a unique, irreversible string. This ensures that even if the database is compromised, passwords remain secure.
+*   **JSON Web Tokens (JWT)**: An open standard used to share security information between two parties (client and server). Each JWT contains encoded JSON objects, including a set of claims. JWTs are cryptographically signed, ensuring that the claims cannot be altered after the token is issued. They are primarily used for stateless user sessions.
+
+### 2. Advanced Data Modeling (`Simple-E-Com-with-Refs`)
+This section explores how to handle complex relationships between different entities in a NoSQL database.
+*   **Mongoose References (`ref`)**: A way to link documents from one collection to documents in another collection. For example, an `Order` document can store the `ObjectId` of the `User` who placed it, creating a reference.
+*   **`populate()`**: A Mongoose method used to automatically replace the specified paths (the references) in the document with the actual document(s) from other collection(s). Instead of just seeing an ID for the User in the Order, `populate` fetches the full User document and attaches it to the query result. This is analogous to a SQL `JOIN`.
 
 ## Prerequisites
 
